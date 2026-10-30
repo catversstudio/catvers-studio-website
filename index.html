@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CatVers Studio — We Build Software That Feels Alive</title>
+<meta name="description" content="CatVers Studio crafts premium Android apps, lightning-fast websites, striking UI design and AI-powered experiences. Small studio, big imagination.">
+<meta property="og:title" content="CatVers Studio — We Build Software That Feels Alive">
+<meta property="og:description" content="Android apps • Websites • UI design • AI projects. Designed to feel alive.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#08080a; --bg2:#0d0d10; --card:#111114; --card2:#16161a;
+  --text:#f4f4ef; --muted:#a7a7ae; --faint:#6d6d75;
+  --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.14);
+  --lime:#d7ff3f; --lime-soft:rgba(215,255,63,.12); --lime-dim:#a8cc2e;
+  --vio:#8b5cf6;
+  --r:22px; --max:1200px;
+  --font-d:'Archivo',sans-serif; --font-b:'Space Grotesk',sans-serif;
+  --ease:cubic-bezier(.22,.9,.28,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-b);line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--font-d);letter-spacing:-.03em;line-height:1.02}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+::selection{background:var(--lime);color:#0a0a0a}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+:focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-radius:6px}
+
+/* ---------- reveal on scroll ---------- */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}.rv.d4{transition-delay:.32s}
+@media(prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+  .mq-track{animation:none!important}
+  .float-a{animation:none!important}
+}
+
+/* ---------- nav ---------- */
+.skip{position:absolute;left:-999px;top:0;background:var(--lime);color:#000;padding:10px 18px;z-index:200;font-weight:600;border-radius:0 0 10px 0}
+.skip:focus{left:0}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(8,8,10,.66);border-bottom:1px solid var(--line)}
+.nav-in{max-width:var(--max);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--font-d);font-weight:800;font-size:17px;letter-spacing:-.01em}
+.brand img{width:40px;height:40px;border-radius:13px;box-shadow:0 6px 22px rgba(139,92,246,.45)}
+.brand small{display:block;font-family:var(--font-b);font-size:10px;font-weight:500;color:var(--muted);letter-spacing:.24em}
+.nav-links{display:flex;gap:30px;font-size:14.5px;color:var(--muted);font-weight:500}
+.nav-links a{position:relative;padding:6px 2px;transition:color .25s}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--lime);border-radius:2px;transition:width .3s var(--ease)}
+.nav-links a:hover{color:#fff}
+.nav-links a:hover::after{width:100%}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--lime);color:#0b0b0b;font-weight:700;font-size:14.5px;padding:12px 24px;border-radius:999px;border:0;cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s;box-shadow:0 8px 30px rgba(215,255,63,.22);font-family:var(--font-b)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 38px rgba(215,255,63,.35)}
+.btn svg{transition:transform .25s var(--ease)}
+.btn:hover svg{transform:translateX(4px)}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--line2);box-shadow:none}
+.btn-ghost:hover{background:rgba(255,255,255,.06);box-shadow:none}
+.burger{display:none;background:none;border:1px solid var(--line2);color:#fff;font-size:20px;cursor:pointer;border-radius:10px;width:44px;height:44px}
+@media(max-width:860px){
+  .nav-links{display:none;position:absolute;top:66px;left:0;right:0;flex-direction:column;background:#0d0d10;border-bottom:1px solid var(--line);padding:18px 24px 22px;gap:6px}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:12px 4px;font-size:16px}
+  .burger{display:block}
+  .nav-cta{display:none}
+}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;padding:130px 0 70px;overflow:hidden}
+#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero-in{position:relative;z-index:2;width:100%}
+.kicker{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--lime);border:1px solid rgba(215,255,63,.28);background:var(--lime-soft);padding:9px 18px;border-radius:999px;margin-bottom:28px}
+.kicker .pulse{width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 14px var(--lime);animation:pl 2s infinite}
+@keyframes pl{50%{opacity:.4}}
+.hero h1{font-size:clamp(46px,8.4vw,108px);font-weight:900;text-transform:uppercase;margin-bottom:26px;max-width:14ch}
+.hero h1 .stroke{color:transparent;-webkit-text-stroke:2px var(--text)}
+.hero h1 .lime{color:var(--lime)}
+.hero .sub{font-size:clamp(16px,2vw,19px);color:var(--muted);max-width:600px;margin-bottom:38px}
+.hero .sub b{color:var(--text);font-weight:600}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:70px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:760px}
+.stat{border:1px solid var(--line);border-radius:18px;padding:22px 24px;background:rgba(255,255,255,.025);backdrop-filter:blur(8px)}
+.stat b{font-family:var(--font-d);font-size:clamp(30px,4vw,44px);font-weight:800;display:block;color:var(--lime);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat span{font-size:13.5px;color:var(--muted)}
+.scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);color:var(--faint);font-size:12px;letter-spacing:.28em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:10px;z-index:2}
+.scroll-hint::after{content:"";width:1px;height:44px;background:linear-gradient(var(--faint),transparent);animation:drop 1.8s var(--ease) infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@media(max-width:640px){.stats{grid-template-columns:1fr 1fr}.stat:last-child{grid-column:1/-1}}
+
+/* ---------- marquee ---------- */
+.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0;overflow:hidden;background:var(--bg2)}
+.mq-track{display:inline-flex;gap:56px;white-space:nowrap;animation:mq 26s linear infinite;font-family:var(--font-d);font-weight:700;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);padding-right:56px}
+.mq-track b{color:var(--lime);font-weight:800}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* ---------- sections ---------- */
+section{padding:110px 0}
+.sec-head{margin-bottom:56px;max-width:720px}
+.eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--lime);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:34px;height:2px;background:var(--lime);border-radius:2px}
+.sec-head h2{font-size:clamp(34px,5vw,58px);font-weight:800;text-transform:uppercase;margin-bottom:16px}
+.sec-head p{color:var(--muted);font-size:16.5px;max-width:600px}
+
+/* ---------- work cards ---------- */
+.work-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media(max-width:820px){.work-grid{grid-template-columns:1fr}}
+.card{position:relative;border:1px solid var(--line);border-radius:var(--r);background:var(--card);overflow:hidden;transition:transform .45s var(--ease),border-color .45s,box-shadow .45s;cursor:pointer}
+.card:hover{transform:translateY(-8px);border-color:rgba(215,255,63,.35);box-shadow:0 30px 70px rgba(0,0,0,.55),0 0 0 1px rgba(215,255,63,.12)}
+.card .thumb{position:relative;height:230px;overflow:hidden}
+.card .thumb .art{position:absolute;inset:0;transition:transform .7s var(--ease)}
+.card:hover .thumb .art{transform:scale(1.07)}
+.card .body{padding:26px 26px 28px}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tag{font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--lime);background:var(--lime-soft);border:1px solid rgba(215,255,63,.22);padding:5px 12px;border-radius:999px}
+.card h3{font-size:24px;font-weight:800;margin-bottom:10px}
+.card p{color:var(--muted);font-size:14.5px;margin-bottom:20px}
+.card .go{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:14.5px;color:var(--text)}
+.card .go .arr{width:38px;height:38px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;transition:.35s var(--ease)}
+.card:hover .go .arr{background:var(--lime);border-color:var(--lime);color:#0b0b0b;transform:rotate(-45deg)}
+/* thumbnail art */
+.art-qc{background:linear-gradient(135deg,#1b1040,#0d2b3a)}
+.art-me{background:linear-gradient(135deg,#06382b,#0a4d3a)}
+.art-ac{background:linear-gradient(135deg,#1c1448,#3b2a7a)}
+.art-ts{background:linear-gradient(135deg,#2a2a10,#3f3a12)}
+.art .mockbar{position:absolute;top:26px;left:26px;right:26px;height:34px;border-radius:10px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);display:flex;align-items:center;gap:7px;padding:0 12px}
+.art .mockbar i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.35);display:block}
+.art .tiles{position:absolute;top:76px;left:26px;right:26px;bottom:26px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.art .tiles s{display:block;border-radius:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);text-decoration:none}
+.art .tiles s:nth-child(odd){background:rgba(215,255,63,.16);border-color:rgba(215,255,63,.25)}
+.art .big{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--font-d);font-weight:900;font-size:110px;color:rgba(255,255,255,.16);letter-spacing:-.04em}
+.art .bars{position:absolute;left:26px;right:26px;bottom:30px;display:flex;align-items:flex-end;gap:10px;height:110px}
+.art .bars s{display:block;flex:1;border-radius:8px 8px 4px 4px;background:rgba(215,255,63,.35);text-decoration:none}
+.art .check{position:absolute;top:30px;left:30px;right:30px;display:flex;flex-direction:column;gap:12px}
+.art .check div{height:40px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);display:flex;align-items:center;gap:12px;padding:0 14px;font-size:13px;color:rgba(255,255,255,.75);font-family:var(--font-b)}
+.art .check div::before{content:"";width:18px;height:18px;border-radius:50%;border:2px solid var(--lime);flex:none}
+.art .check div.done::before{background:var(--lime)}
+.art .check div.done{color:#fff}
+
+/* ---------- services ---------- */
+.svc{border-top:1px solid var(--line)}
+.svc-row{display:grid;grid-template-columns:90px 1fr auto;gap:24px;align-items:center;padding:34px 10px;border-bottom:1px solid var(--line);transition:background .3s,padding .3s var(--ease);cursor:default}
+.svc-row:hover{background:rgba(215,255,63,.035);padding-left:22px}
+.svc-num{font-family:var(--font-d);font-weight:800;font-size:15px;color:var(--faint);letter-spacing:.1em}
+.svc-row h3{font-size:clamp(24px,3.4vw,38px);font-weight:800;text-transform:uppercase;transition:color .3s}
+.svc-row:hover h3{color:var(--lime)}
+.svc-row p{color:var(--muted);font-size:14.5px;max-width:520px;margin-top:8px}
+.svc-arrow{width:54px;height:54px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;flex:none;transition:.35s var(--ease)}
+.svc-row:hover .svc-arrow{background:var(--lime);border-color:var(--lime);color:#0b0b0b;transform:rotate(-45deg)}
+@media(max-width:640px){.svc-row{grid-template-columns:1fr auto}.svc-num{display:none}}
+
+/* ---------- process ---------- */
+.proc{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:step}
+@media(max-width:900px){.proc{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.proc{grid-template-columns:1fr}}
+.step{position:relative;border:1px solid var(--line);border-radius:var(--r);padding:30px 26px;background:var(--card);overflow:hidden;transition:transform .4s var(--ease),border-color .4s}
+.step:hover{transform:translateY(-6px);border-color:rgba(215,255,63,.3)}
+.step::before{counter-increment:step;content:"0" counter(step);font-family:var(--font-d);font-weight:900;font-size:64px;color:transparent;-webkit-text-stroke:1.5px rgba(215,255,63,.4);display:block;margin-bottom:18px;line-height:1}
+.step h3{font-size:19px;font-weight:800;text-transform:uppercase;margin-bottom:10px}
+.step p{color:var(--muted);font-size:14px}
+
+/* ---------- about ---------- */
+.about{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+@media(max-width:900px){.about-grid{grid-template-columns:1fr;gap:36px}}
+.about h2{font-size:clamp(32px,4.6vw,54px);font-weight:800;text-transform:uppercase;margin-bottom:20px}
+.about h2 span{color:var(--lime)}
+.about p{color:var(--muted);margin-bottom:16px;font-size:16px}
+.about p b{color:var(--text)}
+.principles{display:grid;gap:14px}
+.pr{display:flex;gap:16px;align-items:flex-start;border:1px solid var(--line);border-radius:16px;padding:18px 20px;background:var(--card);transition:border-color .3s,transform .3s var(--ease)}
+.pr:hover{border-color:rgba(215,255,63,.3);transform:translateX(6px)}
+.pr .ic{width:46px;height:46px;flex:none;border-radius:14px;background:var(--lime-soft);border:1px solid rgba(215,255,63,.25);display:grid;place-items:center;color:var(--lime)}
+.pr b{display:block;font-size:15.5px;margin-bottom:4px}
+.pr span{color:var(--muted);font-size:13.5px}
+
+/* ---------- contact ---------- */
+.contact{text-align:center;position:relative;overflow:hidden}
+.contact .orb{position:absolute;width:640px;height:640px;border-radius:50%;background:radial-gradient(circle,rgba(215,255,63,.1),transparent 65%);left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none}
+.contact h2{font-size:clamp(40px,7vw,84px);font-weight:900;text-transform:uppercase;margin-bottom:20px;position:relative}
+.contact h2 span{color:var(--lime)}
+.contact p{color:var(--muted);max-width:520px;margin:0 auto 36px;font-size:16.5px;position:relative}
+.contact .cta-row{justify-content:center;margin-bottom:0}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding:44px 0;background:var(--bg2)}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.foot .brand{font-size:15px}
+.foot-links{display:flex;gap:24px;font-size:13.5px;color:var(--muted)}
+.foot-links a:hover{color:var(--lime)}
+.copy{width:100%;text-align:center;color:var(--faint);font-size:12.5px;margin-top:28px;letter-spacing:.06em}
+.float-a{animation:floaty 6s ease-in-out infinite}
+@keyframes floaty{50%{transform:translateY(-14px)}}
+</style>
+</head>
+<body>
+<a class="skip" href="#work">Skip to work</a>
+
+<nav aria-label="Main navigation">
+  <div class="nav-in">
+    <a class="brand" href="#top" aria-label="CatVers Studio home">
+      <img src="assets/logo.svg" alt="CatVers Studio cat logo" width="40" height="40">
+      <span>CatVers<small>STUDIO</small></span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#work">Work</a>
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#about">Studio</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a class="btn nav-cta" href="#contact">Start a project</a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="wrap hero-in">
+    <span class="kicker rv"><span class="pulse"></span> Independent tech studio</span>
+    <h1 class="rv d1">We build software<br><span class="stroke">that feels</span><br><span class="lime">alive.</span></h1>
+    <p class="sub rv d2">CatVers Studio is a one-person tech studio crafting <b>Android apps</b>, <b>websites</b>, <b>interfaces</b> and <b>AI experiences</b> — designed with obsession, built to feel premium.</p>
+    <div class="cta-row rv d3">
+      <a class="btn magnetic" href="#work">See the work
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="btn btn-ghost magnetic" href="#contact">Start a project</a>
+    </div>
+    <div class="stats rv d4">
+      <div class="stat"><b><span class="count" data-to="100">0</span>+</b><span>Free tools live on QuickConvert</span></div>
+      <div class="stat"><b><span class="count" data-to="6">0</span></b><span>Apps &amp; sites shipped</span></div>
+      <div class="stat"><b><span class="count" data-to="100">0</span>%</b><span>On-device &amp; private by design</span></div>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true">Scroll</div>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="mq-track" id="mqTrack">
+    <span><b>✦</b> Android Apps</span><span><b>✦</b> Websites</span><span><b>✦</b> UI Design</span><span><b>✦</b> AI Projects</span>
+    <span><b>✦</b> Android Apps</span><span><b>✦</b> Websites</span><span><b>✦</b> UI Design</span><span><b>✦</b> AI Projects</span>
+  </div>
+</div>
+
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow rv">Selected work</div>
+      <h2 class="rv d1">Shipped. Live.<br>Used by real people.</h2>
+      <p class="rv d2">Every project below is running right now. Tap any card to try it.</p>
+    </div>
+    <div class="work-grid">
+      <a class="card rv" href="https://quickconvert.freedev.app/" target="_blank" rel="noopener" aria-label="Open QuickConvert — 100 free online tools">
+        <div class="thumb"><div class="art art-qc">
+          <div class="mockbar"><i></i><i></i><i></i></div>
+          <div class="tiles"><s></s><s></s><s></s><s></s><s></s><s></s><s></s><s></s></div>
+        </div></div>
+        <div class="body">
+          <div class="tags"><span class="tag">Flagship</span><span class="tag">Web app</span></div>
+          <h3>QuickConvert</h3>
+          <p>100 free online tools — PDF, image, text, calculators &amp; developer utilities. Everything runs 100% in the browser. No sign-up, no uploads.</p>
+          <span class="go">Try it live <span class="arr">→</span></span>
+        </div>
+      </a>
+      <a class="card rv d1" href="https://t.me/myexpensesapp/4" target="_blank" rel="noopener" aria-label="Download My Expenses app">
+        <div class="thumb"><div class="art art-me">
+          <div class="big">₹</div>
+          <div class="bars"><s style="height:38%"></s><s style="height:62%"></s><s style="height:45%"></s><s style="height:80%"></s><s style="height:58%"></s><s style="height:92%"></s></div>
+        </div></div>
+        <div class="body">
+          <div class="tags"><span class="tag">Android</span><span class="tag">Finance</span></div>
+          <h3>My Expenses</h3>
+          <p>A clean, mint-fresh expense tracker for Android. Log spending in seconds, see where your money actually goes.</p>
+          <span class="go">Get the app <span class="arr">→</span></span>
+        </div>
+      </a>
+      <a class="card rv" href="https://t.me/agecalculatorapp/4" target="_blank" rel="noopener" aria-label="Download Age Calculator app">
+        <div class="thumb"><div class="art art-ac"><div class="big">25</div></div></div>
+        <div class="body">
+          <div class="tags"><span class="tag">Android</span><span class="tag">Utility</span></div>
+          <h3>Age Calculator</h3>
+          <p>Exact age in years, months and days with a live birthday countdown — wrapped in a calm indigo interface.</p>
+          <span class="go">Get the app <span class="arr">→</span></span>
+        </div>
+      </a>
+      <a class="card rv d1" href="https://quickconvert.freedev.app/voice-recorder/" target="_blank" rel="noopener" aria-label="Open Task Scheduler web app">
+        <div class="thumb"><div class="art art-ts">
+          <div class="check"><div class="done">Morning run — 5:00 AM</div><div class="done">Maths slot — 1:00 PM</div><div>Evening tuition — 4:00 PM</div></div>
+        </div></div>
+        <div class="body">
+          <div class="tags"><span class="tag">Web app</span><span class="tag">Productivity</span></div>
+          <h3>Task Scheduler</h3>
+          <p>A timetable-first task app with exact alarms, today's timeline and a live next-task countdown. Installable on any phone.</p>
+          <span class="go">Try it live <span class="arr">→</span></span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="services" style="padding-top:40px">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow rv">What we do</div>
+      <h2 class="rv d1">Four crafts.<br>One obsession.</h2>
+      <p class="rv d2">Design, build and polish — under one roof, without the agency bloat.</p>
+    </div>
+    <div class="svc rv">
+      <div class="svc-row">
+        <span class="svc-num">/ 01</span>
+        <div><h3>Android Apps</h3><p>Native-feel Android applications with smooth UI, offline support and delightful micro-interactions.</p></div>
+        <span class="svc-arrow">→</span>
+      </div>
+      <div class="svc-row">
+        <span class="svc-num">/ 02</span>
+        <div><h3>Websites</h3><p>Blazing-fast, responsive websites — from landing pages to full web apps — that rank and convert.</p></div>
+        <span class="svc-arrow">→</span>
+      </div>
+      <div class="svc-row">
+        <span class="svc-num">/ 03</span>
+        <div><h3>UI Design</h3><p>Premium interfaces, design systems and prototypes that developers love to build from.</p></div>
+        <span class="svc-arrow">→</span>
+      </div>
+      <div class="svc-row">
+        <span class="svc-num">/ 04</span>
+        <div><h3>AI Projects</h3><p>AI-powered features, chat experiences and smart automation — brewed into real products where they genuinely help.</p></div>
+        <span class="svc-arrow">→</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process" style="padding-top:40px">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow rv">How we work</div>
+      <h2 class="rv d1">Simple process.<br>Serious polish.</h2>
+      <p class="rv d2">No chaos — a clear path from spark to ship.</p>
+    </div>
+    <div class="proc">
+      <div class="step rv"><h3>Discover</h3><p>We dig into your idea, your users and your goals to find the sharpest angle.</p></div>
+      <div class="step rv d1"><h3>Design</h3><p>Wireframes to pixel-perfect UI — you see it before a single line is built.</p></div>
+      <div class="step rv d2"><h3>Build</h3><p>Clean, fast code with constant previews and honest updates along the way.</p></div>
+      <div class="step rv d3"><h3>Launch</h3><p>Testing, tuning and that final 10% that makes it feel premium.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="wrap about-grid">
+    <div>
+      <div class="eyebrow rv">The studio</div>
+      <h2 class="rv d1">Small studio.<br><span>Big imagination.</span></h2>
+      <p class="rv d2">CatVers Studio is a technology brand obsessed with how software <b>looks, feels and behaves</b>. We don't do boring — we blend clean engineering with bold, playful design, so every app and website feels alive, fast and unmistakably premium.</p>
+      <p class="rv d3">One maker, zero handoffs: the person who designs your product is the person who builds it.</p>
+    </div>
+    <div class="principles">
+      <div class="pr rv">
+        <span class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></span>
+        <div><b>Detail obsessed</b><span>Spacing, motion, typography — the tiny things that make products feel expensive.</span></div>
+      </div>
+      <div class="pr rv d1">
+        <span class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>
+        <div><b>Performance first</b><span>Lightweight builds that load instantly and run smoothly on any device.</span></div>
+      </div>
+      <div class="pr rv d2">
+        <span class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 1 7 7c0 2.4-1.2 4.2-2.6 5.7-.9 1-1.4 2.1-1.4 3.3H9c0-1.2-.5-2.3-1.4-3.3C6.2 13.2 5 11.4 5 9a7 7 0 0 1 7-7z"/><path d="M9 21h6"/></svg></span>
+        <div><b>AI forward</b><span>Smart, AI-powered touches woven in where they genuinely help.</span></div>
+      </div>
+      <div class="pr rv d3">
+        <span class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/></svg></span>
+        <div><b>Human centred</b><span>Real people, real needs. Designed for humans first, screens second.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="orb" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="eyebrow rv" style="justify-content:center">Contact</div>
+    <h2 class="rv d1">Have an idea?<br><span>Let's build it.</span></h2>
+    <p class="rv d2">Tell us what you're dreaming of — an app, a website, a fresh interface. We reply fast and talk straight.</p>
+    <div class="cta-row rv d3">
+      <a class="btn magnetic" href="mailto:asisasastudent@gmail.com?subject=Project%20idea%20for%20CatVers%20Studio">asisasastudent@gmail.com
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a class="brand" href="#top" aria-label="Back to top">
+        <img src="assets/logo.svg" alt="CatVers Studio cat logo" width="34" height="34">
+        <span>CatVers<small>STUDIO</small></span>
+      </a>
+      <div class="foot-links">
+        <a href="#work">Work</a><a href="#services">Services</a><a href="#process">Process</a><a href="#about">Studio</a><a href="#contact">Contact</a>
+      </div>
+    </div>
+    <p class="copy">© <span id="yr">2026</span> CatVers Studio — Designed &amp; built with obsession.</p>
+  </div>
+</footer>
+<script>
+(function(){
+  "use strict";
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ---------- particle dot-grid hero (adapted from 21st.dev "Animated Hero" concept) ---------- */
+  var canvas = document.getElementById('stars');
+  var hero = document.querySelector('.hero');
+  if (canvas && hero && !reduced) {
+    var ctx = canvas.getContext('2d');
+    var W = 0, H = 0, dots = [], GAP = 36, R = 150;
+    var cursor = { x: -9999, y: -9999 };
+    var auto = true, lastMove = 0, t0 = performance.now();
+    var running = true;
+
+    function build() {
+      var r = hero.getBoundingClientRect();
+      W = canvas.width = Math.floor(r.width);
+      H = canvas.height = Math.floor(r.height);
+      dots = [];
+      for (var y = GAP/2; y < H; y += GAP) {
+        for (var x = GAP/2; x < W; x += GAP) {
+          dots.push({ x: x, y: y, dx: (x - W/2) / (W/2), dy: (y - H/2) / (H/2) });
+        }
+      }
+    }
+    function loop(now) {
+      if (!running) { requestAnimationFrame(loop); return; }
+      var t = (now - t0) / 1000;
+      var cx, cy;
+      if (auto) {
+        cx = W/2 + Math.sin(t * 0.35) * W * 0.22 + Math.sin(t * 0.18) * W * 0.08;
+        cy = H/2 + Math.cos(t * 0.28) * H * 0.2;
+      } else {
+        var idle = Math.min((Date.now() - lastMove - 300) / 1200, 1);
+        if (idle < 0) idle = 0;
+        cx = cursor.x + Math.sin(t * 1.6) * 22 * idle;
+        cy = cursor.y + Math.cos(t * 1.3) * 18 * idle;
+      }
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < dots.length; i++) {
+        var d = dots[i];
+        var distC = Math.sqrt(d.dx*d.dx + d.dy*d.dy);           // distance from grid centre
+        var damp = Math.max(0.25, 1 - distC * 0.55);            // centre dots react more
+        var ox = (cx - W/2) * 0.35 * damp, oy = (cy - H/2) * 0.35 * damp;
+        var px = d.x + ox, py = d.y + oy;
+        var dc = Math.sqrt((px-cx)*(px-cx) + (py-cy)*(py-cy));
+        var glow = Math.max(0, 1 - dc / R);
+        var a = 0.10 + glow * 0.75;
+        var rad = 1.1 + glow * 2.2;
+        ctx.beginPath();
+        ctx.arc(px, py, rad, 0, 6.2832);
+        ctx.fillStyle = 'rgba(215,255,63,' + a.toFixed(3) + ')';
+        if (glow > 0.02) { ctx.shadowColor = 'rgba(215,255,63,.9)'; ctx.shadowBlur = 14 * glow; }
+        else { ctx.shadowBlur = 0; }
+        ctx.fill();
+      }
+      ctx.shadowBlur = 0;
+      requestAnimationFrame(loop);
+    }
+    hero.addEventListener('pointermove', function(e){
+      var r = canvas.getBoundingClientRect();
+      cursor.x = e.clientX - r.left; cursor.y = e.clientY - r.top;
+      auto = false; lastMove = Date.now();
+      clearTimeout(hero._rt);
+      hero._rt = setTimeout(function(){ if (Date.now() - lastMove >= 4000) auto = true; }, 4100);
+    }, { passive: true });
+    hero.addEventListener('pointerleave', function(){ auto = true; });
+    new IntersectionObserver(function(en){ running = en[0].isIntersecting; }, { threshold: 0 }).observe(hero);
+    var rsz; window.addEventListener('resize', function(){ clearTimeout(rsz); rsz = setTimeout(build, 200); });
+    build(); requestAnimationFrame(loop);
+  }
+
+  /* ---------- reveal on scroll ---------- */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+
+  /* ---------- count-up stats ---------- */
+  var cio = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (!e.isIntersecting) return;
+      cio.unobserve(e.target);
+      var el = e.target, to = parseInt(el.dataset.to, 10), t0 = null;
+      if (reduced) { el.textContent = to; return; }
+      function tick(now){
+        if (!t0) t0 = now;
+        var p = Math.min((now - t0) / 1400, 1);
+        el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }, { threshold: 0.6 });
+  document.querySelectorAll('.count').forEach(function(el){ cio.observe(el); });
+
+  /* ---------- mobile nav ---------- */
+  var burger = document.getElementById('burger'), links = document.getElementById('navLinks');
+  burger.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.textContent = open ? '✕' : '☰';
+  });
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ links.classList.remove('open'); burger.textContent = '☰'; burger.setAttribute('aria-expanded','false'); });
+  });
+
+  /* ---------- magnetic buttons (desktop only) ---------- */
+  if (finePointer && !reduced) {
+    document.querySelectorAll('.magnetic').forEach(function(btn){
+      btn.addEventListener('pointermove', function(e){
+        var r = btn.getBoundingClientRect();
+        var x = (e.clientX - r.left - r.width/2) * 0.18;
+        var y = (e.clientY - r.top - r.height/2) * 0.28;
+        btn.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)';
+      });
+      btn.addEventListener('pointerleave', function(){ btn.style.transform = ''; });
+    });
+  }
+
+  /* ---------- misc ---------- */
+  document.getElementById('yr').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>

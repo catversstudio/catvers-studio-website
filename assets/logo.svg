@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="55%" stop-color="#4F46E5"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="18" fill="url(#bg)"/>
+  <rect x="2" y="2" width="60" height="60" rx="18" fill="url(#shine)"/>
+  <!-- Cat head geometric -->
+  <path d="M18 24 L14 12 L26 18 Z" fill="#fff" opacity="0.95"/>
+  <path d="M46 24 L50 12 L38 18 Z" fill="#fff" opacity="0.95"/>
+  <path d="M32 18 C22 18 16 26 16 34 C16 44 23 50 32 50 C41 50 48 44 48 34 C48 26 42 18 32 18 Z" fill="#fff"/>
+  <!-- Eyes -->
+  <ellipse cx="25.5" cy="35" rx="3.2" ry="4" fill="#1e1b4b"/>
+  <ellipse cx="38.5" cy="35" rx="3.2" ry="4" fill="#1e1b4b"/>
+  <circle cx="26.5" cy="33.8" r="1.1" fill="#fff"/>
+  <circle cx="39.5" cy="33.8" r="1.1" fill="#fff"/>
+  <!-- Nose / V for Vers -->
+  <path d="M29 42 L32 45 L35 42 L34 40.5 L32 42 L30 40.5 Z" fill="#7C3AED"/>
+  <path d="M28 46.5 L32 52 L36 46.5 L34.5 46.5 L32 49.5 L29.5 46.5 Z" fill="#06B6D4" opacity="0.9"/>
+</svg>
